@@ -9,14 +9,15 @@
 
 <style>
 	body {
+		overflow: hidden;
 		background-color: rgb(25, 25, 53);
 		/* 
 			Stars shamelessly stolen from this stackoverflow question:width
 			https://stackoverflow.com/a/33948325
 		;*/
 		background-image:
-		radial-gradient( red, rgba(209, 14, 14, 0.1) 1px, transparent 5px),
-		radial-gradient(green, rgba(0, 255, 0, 0.15) 1px, transparent 7px),
+		radial-gradient( red, rgba(209, 14, 14, 0.1) 2px, transparent 5px),
+		radial-gradient(green, rgba(0, 255, 0, 0.15) 3px, transparent 7px),
 		radial-gradient(orange, rgba(255, 123, 0, 0.1) 2px, transparent 6px),
 		radial-gradient(rgba(255, 0, 221, 0.4), rgba(38, 0, 255, 0.1) 2px, transparent 3px);
 		background-size: 550px 550px, 350px 350px, 250px 250px, 150px 150px; 
@@ -24,32 +25,66 @@
 	}
 
 	#text {
+		word-wrap: break-word;
 		color: burlywood;
 		font-family: 'Space Mono', bold;
-		
+		font-size: larger;
 		line-height: 0px;
 		text-align: center;
+		text-shadow: 1.5px 0.5px #ff0000;
+
 	}
 	marquee {
-		color: burlywood
+		color: grey;
+		text-shadow: 1.5px 0.5px #ff0000;
 	}
 	#moon {
-		text-align: center;
+		margin: auto;
+		max-width: 500px;
+		max-height: 500px;
 	}
 	#moon img {
-		width: 40%;
+		width: 500px;
+	}
+
+	#asteroids {
+		width: 100%;
+		height: 100%;
 	}
 </style>
 <body>
-	<div id="moon">
-		<img src="https://image.freepik.com/free-vector/pixel-art-moon-icon_41992-1203.jpg"> 
+	<div id="asteroids">
+		<marquee height="">o</marquee>
 	</div>
-	
+	<div id="moon">
+		<img alt="Cool pixel art of the moon" src="Moon.gif"> 
+	</div>
 	<div id="text">
 		<h1>404 - Space Not Found</h1>
 		<br>
 		<p>You have aimed for the moon</p>
 		<p>Now you shall lay among the stars</p>
 	</div>
+	<script>
+		let asteroidCount = 5;
+		const genRandWidth = () => Math.random() * window.innerHeight
+		const genRandHeight = () => Math.random() * window.innerWidth
+		const getRandDirection = () => Math.random() > 0.5 ? 'right' : 'left'
+
+		asteroidList = document.querySelector('#asteroids')
+		const genAsteroid = () => {
+			const asteroidElement = document.createElement('marquee')
+			asteroidElement.setAttribute('width', genRandWidth())
+			//asteroidElement.setAttribute('height', genRandHeight())
+			asteroidElement.setAttribute('direction', getRandDirection())
+			asteroidElement.innerText = "o"
+			asteroidList.innerHTML += asteroidElement.outerHTML
+		}
+
+		while (asteroidCount > 0) {
+			genAsteroid()
+			asteroidCount--
+		}
+	</script>
 </body>
 </html>
